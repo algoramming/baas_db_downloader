@@ -6,3 +6,5 @@ const Color kSeedColor = Color(0xFF002243);
 const Color kAccentColor = Color(0xFF116778);
 
 final defaultBorderRadius = BorderRadius.circular(10.0);
+
+Duration kAnimationDuration([double t = 2.5]) => Duration(milliseconds: (t * 1000).toInt());

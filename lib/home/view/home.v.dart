@@ -1,4 +1,4 @@
-import 'package:baas_db_downloader/constant.dart';
+import 'package:baas_db_downloader/config/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'components/firebase_section.dart';

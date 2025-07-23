@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class CodePreview extends StatelessWidget {
   const CodePreview({super.key, required this.jsonData, this.title});
 
-  final Map<String, dynamic> jsonData;
+  final List<Map<String, dynamic>> jsonData;
   final String? title;
 
   @override

@@ -10,12 +10,21 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.8
+  excel:
+    git:
+      url: https://github.com/sabikrahat/excel.git
+      ref: main
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
   flutter_riverpod: ^2.6.1
-  flutter_supabase_chat_core: ^1.6.0
+  flutter_spinkit: ^5.2.1
+  lottie: ^3.3.1
+  path: ^1.9.1
+  path_provider: ^2.1.5
   pocketbase: ^0.23.0
+  supabase_flutter: ^2.9.1
+  universal_html: ^2.2.4
 
 dev_dependencies:
   flutter_lints: ^5.0.0
@@ -29,6 +38,7 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/fonts/
+    - assets/lottie/
 
   fonts:
     - family: JetBrainsMono

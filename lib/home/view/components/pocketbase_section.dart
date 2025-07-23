@@ -1,4 +1,4 @@
-import 'package:baas_db_downloader/constant.dart';
+import 'package:baas_db_downloader/config/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -125,11 +125,7 @@ class PocketbaseSection extends ConsumerWidget {
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Download functionality coming soon!')),
-                      );
-                    },
+                    onPressed: () async => await notifier.downloaddata(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kAccentColor,
                       foregroundColor: Colors.white,
@@ -141,7 +137,7 @@ class PocketbaseSection extends ConsumerWidget {
                 ),
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: () async => await notifier.submit(context),
+                    onPressed: () async => await notifier.showData(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kPrimaryColor,
                       foregroundColor: Colors.white,
@@ -154,7 +150,7 @@ class PocketbaseSection extends ConsumerWidget {
               ],
             ),
             if (notifier.jsonData.isNotEmpty)
-              SizedBox(height: 600, child: CodePreview(jsonData: {'data': notifier.jsonData})),
+              SizedBox(height: 600, child: CodePreview(jsonData: notifier.jsonData)),
           ],
         ),
       ),

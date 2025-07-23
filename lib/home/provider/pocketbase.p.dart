@@ -1,11 +1,16 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 import '../../textfield_tags/controller.dart';
+import '../excel/cooking_document.dart';
+import '../excel/document_generate_popup.dart';
+import '../excel/isolate.dart';
 
 typedef PocketbaseNotifier = NotifierProvider<PocketbaseProvider, void>;
 
@@ -39,7 +44,7 @@ class PocketbaseProvider extends Notifier<void> {
     ref.notifyListeners();
   }
 
-  Future<void> submit(BuildContext context) async {
+  Future<void> showData(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
     try {
       EasyLoading.show();
@@ -61,4 +66,33 @@ class PocketbaseProvider extends Notifier<void> {
     }
   }
 
+  Future<void> downloaddata(BuildContext context) async {
+    if (!formKey.currentState!.validate()) return;
+    if (jsonData.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('No data to download')));
+      return;
+    }
+    try {
+      showCookingPopup(context);
+      
+      final isolateMessage = IsolateMessage(
+        data: jsonData,
+        token: ServicesBinding.rootIsolateToken,
+        isWeb: kIsWeb,
+      );
+      
+      await compute(generateExcelInIsolate, isolateMessage);
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      await showDocumentGeneratePopup(context);
+    } catch (e) {
+      log('Error downloading data: $e');
+      if (!context.mounted) return;
+      Navigator.of(context).pop(); // Close loading popup
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      return;
+    }
+  }
 }

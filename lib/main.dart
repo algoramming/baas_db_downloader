@@ -1,10 +1,13 @@
-import 'package:baas_db_downloader/constant.dart';
+import 'package:baas_db_downloader/config/constant.dart';
+import 'package:baas_db_downloader/config/get_platform.dart';
 import 'package:baas_db_downloader/home/view/home.v.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  pt = PlatformInfo.getCurrentPlatformType();
   _configEasyLoading();
   runApp(ProviderScope(child: const MyApp()));
 }
