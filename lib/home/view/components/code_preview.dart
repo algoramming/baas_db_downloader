@@ -16,7 +16,6 @@ class CodePreview extends StatelessWidget {
     final lines = jsonString.split('\n');
 
     return Container(
-      height: 600,
       decoration: BoxDecoration(
         color: const Color(0xFF0D1117),
         borderRadius: defaultBorderRadius,

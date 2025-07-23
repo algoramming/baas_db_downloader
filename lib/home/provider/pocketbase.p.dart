@@ -15,13 +15,15 @@ class PocketbaseProvider extends Notifier<void> {
   final formKey = GlobalKey<FormState>();
   final urlController = TextEditingController();
   final tableController = TextEditingController();
-  final columnsController = StringTagController<String>();
+  late final StringTagController<String> columnsController;
   final List<String> columns = [];
 
   List<Map<String, dynamic>> jsonData = [];
 
   @override
-  void build() {}
+  void build() {
+    columnsController = StringTagController<String>();
+  }
 
   void addColumn(String column) {
     if (column.isNotEmpty && !columns.contains(column)) {
@@ -58,4 +60,5 @@ class PocketbaseProvider extends Notifier<void> {
       EasyLoading.dismiss();
     }
   }
+
 }

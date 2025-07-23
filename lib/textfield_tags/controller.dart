@@ -145,6 +145,26 @@ class TextfieldTagsController<T> extends TextfieldTagsNotifier<T> {
     });
   }
 
+  void resetController() {
+    if (_textEditingController != null && _textEditingController!.origin == true) {
+      _textEditingController!.object.dispose();
+    }
+    if (_focusNode != null && _focusNode!.origin == true) {
+      _focusNode!.object.dispose();
+    }
+    if (_scrollController != null && _scrollController!.origin == true) {
+      _scrollController!.object.dispose();
+    }
+    
+    _tags = null;
+    _textSeparators = null;
+    _letterCase = null;
+    _validator = null;
+    _textEditingController = null;
+    _focusNode = null;
+    _scrollController = null;
+  }
+
   void registerController(
     List<T>? initialTags,
     List<String>? textSeparators,
@@ -154,10 +174,10 @@ class TextfieldTagsController<T> extends TextfieldTagsNotifier<T> {
     TextEditingController? textEditingController,
     ScrollController? scrollController,
   ) {
-    assert(
-      (_tags == null && _textSeparators == null && _letterCase == null && _validator == null),
-      'You\'ve already registered a tag controller',
-    );
+    if (_tags != null || _textSeparators != null || _letterCase != null || _validator != null) {
+      resetController();
+    }
+    
     _tags = initialTags != null ? initialTags.toList() : [];
     _textSeparators = textSeparators != null ? textSeparators.toSet() : {};
     _letterCase = letterCase ?? LetterCase.normal;
