@@ -24,43 +24,44 @@ class HomeView extends StatelessWidget {
           child: DefaultTabController(
             initialIndex: 1,
             length: 3,
-            child: NestedScrollView(
-              headerSliverBuilder: (_, _) => [
-                SliverToBoxAdapter(
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 8.0),
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).dividerColor.withValues(alpha: 0.15),
+
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor.withValues(alpha: 0.15),
+                    borderRadius: defaultBorderRadius,
+                  ),
+                  child: TabBar(
+                    padding: EdgeInsets.zero,
+                    indicatorPadding: EdgeInsets.zero,
+                    splashBorderRadius: defaultBorderRadius,
+                    physics: const BouncingScrollPhysics(),
+                    indicatorColor: Colors.white,
+                    automaticIndicatorColorAdjustment: true,
+                    unselectedLabelColor: Theme.of(context).textTheme.titleMedium!.color,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelColor: Colors.white,
+                    indicator: BoxDecoration(
+                      color: kPrimaryColor,
                       borderRadius: defaultBorderRadius,
                     ),
-                    child: TabBar(
-                      padding: EdgeInsets.zero,
-                      indicatorPadding: EdgeInsets.zero,
-                      splashBorderRadius: defaultBorderRadius,
-                      physics: const BouncingScrollPhysics(),
-                      indicatorColor: Colors.white,
-                      automaticIndicatorColorAdjustment: true,
-                      unselectedLabelColor: Theme.of(context).textTheme.titleMedium!.color,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelColor: Colors.white,
-                      indicator: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: defaultBorderRadius,
-                      ),
-                      dividerColor: Colors.transparent,
-                      tabs: const [
-                        Tab(text: 'Firebase'),
-                        Tab(text: 'Pocketbase'),
-                        Tab(text: 'Supabase'),
-                      ],
-                    ),
+                    dividerColor: Colors.transparent,
+                    tabs: const [
+                      Tab(text: 'Firebase'),
+                      Tab(text: 'Pocketbase'),
+                      Tab(text: 'Supabase'),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: const TabBarView(
+                    children: [FirebaseSection(), PocketbaseSection(), SupabaseSection()],
                   ),
                 ),
               ],
-              body: const TabBarView(
-                children: [FirebaseSection(), PocketbaseSection(), SupabaseSection()],
-              ),
             ),
           ),
         ),
